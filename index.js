@@ -10,12 +10,11 @@ const logger = require('morgan');
 const app = express();
 
 // Sets up the logger module that we pulled in to run as middleware in our app
-app.use(lo('dev'));
+app.use(logger('dev'));
 
 /*
   Sets the applicationn port equal to the value of the PORT environment variable,
   or to 5000 if that variable is not specified.
-
   For example, we could start the app on port 6000 by running `PORT=6000 npm start`
 */
 app.set('port', (process.env.PORT || 5000));
@@ -23,13 +22,11 @@ app.set('port', (process.env.PORT || 5000));
 app.get('/', (request, response) => {
   response.send('Hello World!')
 });
+
 app.get('/greeting', (request, response) => {
   // FIXME: If a name is not given, the app says 'Hello undefined'
   const message = `Hello ${request.query.name}`;
-  if(`${request.query.name}`!="")
-    response.status(200).send(message);
-  else
-    response.status(200).send("Hello no-name");
+  response.status(200).send(message);
 });
 
 app.get('/todo', async (request, response) => {
