@@ -34,7 +34,7 @@ app.get('/greeting', (request, response) => {
 
 app.get('/todo', async (request, response) => {
   try {
-    const todo = await axios.get('https://jsonplaceholder.typicode.com/todos/1')
+    const todo = await axios.get('https://jsonplaceholder.typicode.com/todos/${request.query.number}')
       .then(res => res.data);
     response.json(todo);
   } catch (e) {
